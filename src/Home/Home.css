@@ -1,0 +1,17 @@
+.Home{
+    width: 366px;
+    height: 280px;
+    position: relative;
+    margin: 0 auto;
+    top: 40%;
+    font-size: 128px;
+}
+.button_wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ant-btn{
+    width: 159px;
+    height: 50px;
+}
