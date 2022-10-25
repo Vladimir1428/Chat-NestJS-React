@@ -1,20 +1,26 @@
 import './Home.css'
-import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
-export const Home = () =>{
-    const navigate = useNavigate()
-    const onSingUp = () => {
-        navigate('/singup')
-    }
-    const onLogin = () => {
-        navigate('/login')
-    }
+import { Button, Input, Select} from 'antd';
+const { Option } = Select;
+
+export const Home = ({ username, setUsername, room, setRoom, socket }) => {
+
     return(
-        <div className='Home'>
-            <span>CHAT</span>
-            <div className='button_wrapper'>
-                <Button type="primary" onClick={onSingUp}>SingUp</Button>
-                <Button type="primary" onClick={onLogin}>Login</Button>
+        <div className="Home">
+            <div className='login-form'>
+                <span className='title'>Chat Room</span>
+                <Select
+                    defaultValue="React"
+                    onChange= {(room)=> {setRoom(room)}}
+                >
+                    <Option value="Angular">Angular</Option>
+                    <Option value="Vue">Vue</Option>
+                    <Option value="React">React</Option>
+                </Select>
+                <Button 
+                    type="primary"
+                >
+                    Join
+                </Button>
             </div>
         </div>
     )

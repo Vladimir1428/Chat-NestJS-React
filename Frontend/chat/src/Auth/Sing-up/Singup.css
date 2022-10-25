@@ -1,9 +1,10 @@
 .SingUp{
-    width: 350px;
-    height: 395px;
+    width: 20%;
+    height: 40%;
     position: relative;
     margin: 0 auto;
     top: 25%;
+    align-items: center;
 }
 .singup-form-button{
     display: block;
@@ -12,8 +13,13 @@
     width: 100px;
     margin-top: 10px;
 }
-.title{
+.SingUp .title{
     display: block;
+    width: 100%;
     font-size: 36px;
     margin-bottom: 20px;
+    font-size: 64px;
+}
+span{
+    text-align: center;
 }
