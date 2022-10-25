@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Home } from './Home/Home';
 import { SingUp } from './Home/Sing-up/SingUp';
 import { Login } from './Home/Login/Login';
-
 function App() {
   return (
     <BrowserRouter>

@@ -7,7 +7,7 @@ export const SingUp = () => {
     const [form] = Form.useForm()
     const [message,setMessage] = useState()
     const onSingup = async (values) => {
-     let response = await fetch('http://localhost:4000/createUser',{
+     let response = await fetch('http://localhost:4000/registration',{
         method: "POST",
         headers: {
             'Content-Type': "application/json"

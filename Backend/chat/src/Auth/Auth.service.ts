@@ -1,27 +1,30 @@
 import { MailService } from '../Mail/MailService';
 import { UserService } from './../User/UserService';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from "@nestjs/jwt/dist";
+
+const bcrypt = require('bcrypt')
 
 @Injectable()
 export class AuthService {
     constructor(private readonly userService: UserService,
                 private readonly jwtService: JwtService,
                 private readonly mailService: MailService){}
-      // singup
-      async singUp(userData){
+
+    async singUp(userData){
+        userData.password =  await bcrypt.hash(userData.password,5)
         const user = await this.userService.createUser(userData);
         await this.sendConfirmation(user)
         return user
     }
     async sendConfirmation(user){
-       
         const token =  this.generateToken(user)
         this.mailService.sendMail(user.email, token)
     }
-    generateToken(payload){
+    async generateToken(payload){
         if(typeof(payload) !== "string")
-       return this.jwtService.sign(payload.toJSON())
+
+        return this.jwtService.sign(payload.toJSON())
     }
 
     async confirm(token){
@@ -34,5 +37,21 @@ export class AuthService {
         }catch(err){
             return "<div style='font-size: 64px'>Время жизни токена истокло</div>"
         } 
+    }
+    async login(userData) {
+       const user = await this.validateUser(userData)
+
+       return this.generateToken(user)
+    }
+    async validateUser(userData){
+
+        const user =  await this.userService.findUser(userData);
+
+       const passwordEquels = await bcrypt.compare(userData.password,user[0].password)
+       if(user && passwordEquels){
+        return user[0]
+       }else{
+        throw new UnauthorizedException({message: "Пользователь не найден"})
+       }
     }
 }

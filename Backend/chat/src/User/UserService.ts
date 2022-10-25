@@ -17,4 +17,8 @@ export class UserService {
     updateUser(userData){
         return this.userModel.findOneAndUpdate({username: userData["username"]},{active: true}).exec()
     }
+    async findUser(userData){
+        const user = this.userModel.find({username: userData["username"], active: true}).exec()
+        return user
+    }
 }

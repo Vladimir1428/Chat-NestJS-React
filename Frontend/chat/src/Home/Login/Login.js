@@ -1,11 +1,21 @@
 import "./Login.css"
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button } from 'antd';
+import { useDispatch } from "react-redux";
+import { setToken } from "../../slice/tokenSlice";
 
 export const Login = () => {
+    const dispatch = useDispatch()
     const [form] = Form.useForm()
-    const onLogin = (values) => {
-      console.log(values)
+    const onLogin = async (values) => {
+      let response = await fetch('http://localhost:4000/login',{
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(values)
+      })
+      dispatch(setToken(await response.json()))
       form.resetFields()
       };
     return(
